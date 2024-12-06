@@ -9,6 +9,13 @@ h1 {
     font-weight: bold;
 }
 
+h2 {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #b8b8b8;
+    font-size: large;
+    font-weight: bold;
+}
+
 /* Hier ist unsere Navigation */
 .navigation {
     background-color: #b8b8b8;
