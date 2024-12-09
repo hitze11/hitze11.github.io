@@ -26,7 +26,7 @@
 
         nav {
             display: flex;
-            justify-content: center;
+            justify-content: space-between; /* Elemente links, in der Mitte und rechts */
             align-items: center;
             background: linear-gradient(145deg, #2a3b55, #1b283d);
             border: 2px solid #1a2434;
@@ -58,40 +58,14 @@
             transform: scale(1.05);
         }
 
+        .nav-logo {
+            width: 60px; /* Logo-Größe */
+            height: auto;
+            border-radius: 50%; /* Rundes Logo */
+        }
+
         section {
             padding: 20px;
-        }
-
-        table {
-            width: 100%;
-            max-width: 800px;
-            margin: 20px auto;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: stretch;
-        }
-
-        table ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        table a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        table a:hover {
-            color: #ADD8E6;
-        }
-
-        td {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            padding: 10px;
         }
 
         img {
@@ -113,20 +87,21 @@
     </header>
 
     <nav>
+        <!-- Logo links -->
+        <img src="logo.jpeg" alt="Logo" class="nav-logo">
+
+        <!-- Navigationselemente -->
         <a href="start.html">Home</a>
         <a href="projects.html">Projekte</a>
         <a href="certificates.html">Zertifikate</a>
-        
         <a href="contact.html">Kontakt</a>
+
+        <!-- Logo rechts -->
+        <img src="logo.jpeg" alt="Logo" class="nav-logo">
     </nav>
 
-    </style>
-
-
-    </head>
-
-    <body>
-        <img src="images/me.png" heigh="250" width="250" alt="Ronny Stieber">
+    <section>
+        <img src="images/me.png" height="250" width="250" alt="Ronny Stieber">
 
         <h2>Mein Name ist Ronny Stieber,<br> ich bin 39 Jahre alt und lebe in Kamenz. <br> Ich bin stolzer Vater von
             zwei Kindern
@@ -134,23 +109,13 @@
             Ursprünglich habe ich den Beruf des Kfz-Mechanikers gelernt, bei dem ich viel technisches Know-how und
             handwerkliches Geschick entwickelt habe. <br> Derzeit bilde ich mich bei Techstarter weiter, um meine
             Kenntnisse
-            im Bereich moderner Technologien und der IT zu vertiefen um mich beruflich weiterzuentwickeln. <br>
+            im Bereich moderner Technologien und der IT zu vertiefen, um mich beruflich weiterzuentwickeln. <br>
             Ich schätze es, Neues zu lernen, Herausforderungen anzunehmen und mein Wissen in innovative Projekte
             einzubringen. <br> Meine größte Leidenschaft sind Autos.</h2>
 
-        </h2>
-
         <img src="images/cars.gif" alt="cars">
+    </section>
 
-    </body>
-
-
-
-
-
-
-
-
-
+</body>
 
 </html>

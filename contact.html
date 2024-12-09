@@ -26,7 +26,7 @@
 
         nav {
             display: flex;
-            justify-content: center;
+            justify-content: space-between; /* Elemente links und rechts platzieren */
             align-items: center;
             background: linear-gradient(145deg, #2a3b55, #1b283d);
             border: 2px solid #1a2434;
@@ -56,6 +56,12 @@
             background: linear-gradient(145deg, #2c3e5b, #1c2737);
             color: #ADD8E6;
             transform: scale(1.05);
+        }
+
+        .nav-logo {
+            width: 60px; /* Logo-Größe */
+            height: auto;
+            border-radius: 50%; /* Rundes Logo */
         }
 
         section {
@@ -113,10 +119,17 @@
     </header>
 
     <nav>
+        <!-- Logo links -->
+        <img src="images/logo.jpeg" alt="Logo" class="nav-logo">
+
+        <!-- Navigationselemente -->
         <a href="start.html">Home</a>
         <a href="about.html">About Me</a>
         <a href="projects.html">Projekte</a>
         <a href="certificates.html">Zertifikate</a>
+
+        <!-- Logo rechts -->
+        <img src="images/logo.jpeg" alt="Logo" class="nav-logo">
     </nav>
 
     <hr>
@@ -144,7 +157,7 @@
                                 <h3><a href="mailto:ronny_stieber@web.de">Email</a></h3>
                             </li>
                             <li>
-                                <h3><a href="tel:1555548855">Telefon/Whattsapp</a></h3>
+                                <h3><a href="tel:1555548855">Telefon/WhatsApp</a></h3>
                             </li>
                             <li><a href="https://www.instagram.com/ronny_s4_b6/">
                                     <img src="images/qr.png" height="50" alt="Instagram QR Code" />

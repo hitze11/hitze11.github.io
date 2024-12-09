@@ -26,7 +26,7 @@
 
         nav {
             display: flex;
-            justify-content: center;
+            justify-content: space-between; /* Elemente links und rechts platzieren */
             align-items: center;
             background: linear-gradient(145deg, #2a3b55, #1b283d);
             border: 2px solid #1a2434;
@@ -58,50 +58,25 @@
             transform: scale(1.05);
         }
 
+        .nav-logo {
+            width: 60px; /* Größe des Logos anpassen */
+            height: auto;
+            border-radius: 50%; /* Rundes Logo */
+        }
+
         section {
             padding: 20px;
         }
 
-        table {
-            width: 100%;
-            max-width: 800px;
-            margin: 20px auto;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: stretch;
-        }
-
-        table ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        table a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        table a:hover {
-            color: #ADD8E6;
-        }
-
-        td {
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            padding: 10px;
-        }
-
         img {
             border-radius: 5px;
+            display: block;
+            margin: 0 auto;
+            transition: transform 0.3s ease; /* Smooth zoom effect */
         }
 
-        hr {
-            border: 1px solid #444;
-            margin: 20px auto;
-            max-width: 90%;
+        img:hover {
+            transform: scale(1.5); /* Image zoom on hover */
         }
     </style>
 </head>
@@ -113,35 +88,29 @@
     </header>
 
     <nav>
+        <!-- Logo links -->
+        <img src="images/logo.jpeg" alt="Logo" class="nav-logo">
+
+        <!-- Navigationselemente -->
         <a href="start.html">Home</a>
         <a href="about.html">About Me</a>
         <a href="certificates.html">Zertifikate</a>
         <a href="contact.html">Kontakt</a>
+
+        <!-- Logo rechts -->
+        <img src="images/logo.jpeg" alt="Logo" class="nav-logo">
     </nav>
 
-    </style>
+    <h1>Laufende Projekte</h1>
+    <h2>Portfolio Homepage</h2>
 
-
-    </head>
-
-    <body>
-        <h1>laufende Projekte</h1>
-        <h2>Portfolio Homepage </h2>
-
-        <img src="images/site.gif" height="200" alt="site">
-    </body>
+    <img src="images/site.gif" height="200" alt="site"> <!-- Höhe des Bildes auf 200px festgelegt -->
 
     <h2>Github</h2>
-    <a href="https://github.com/hitze11" target="_blank"><img src="images/git.png" height="200"
+    <a href="https://github.com/hitze11" target="_blank">
+        <img src="images/git.png" height="200" alt="github">
+    </a>
 
-
-
-
-
-
-
-
-
-
+</body>
 
 </html>
