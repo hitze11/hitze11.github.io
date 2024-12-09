@@ -4,16 +4,96 @@
 <head>
     <title>Portfolio</title>
     <link rel="stylesheet" href="styles/styles.css">
+    <style>
+        body {
+            background-image: url('images/logo.jpeg');
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+
+            background-attachment: fixed;
+
+            background-color: #0b0e10;
+            /* Dunkler Hintergrund */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .enter-button {
+            font-size: 24px;
+            font-weight: bold;
+            color: #cce6ff;
+            /* Helles Blau */
+            background: linear-gradient(145deg, #10304e, #0b1f34);
+            /* Metallischer Verlauf */
+            border: none;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            text-align: center;
+            line-height: 120px;
+            text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.7);
+            box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.6), -4px -4px 8px rgba(255, 255, 255, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+
+        .enter-button:hover {
+            transform: scale(1.1);
+            box-shadow: 6px 6px 12px rgba(0, 0, 0, 0.8), -6px -6px 12px rgba(255, 255, 255, 0.2);
+        }
+
+        .enter-button:active {
+            transform: scale(0.95);
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.8), -2px -2px 6px rgba(255, 255, 255, 0.2);
+
+            background-image: url('images/logo.jpeg');
+            background-size: 100%;
+            background-repeat: no-repeat;
+            background-position: center;
+
+            background-attachment: fixed;
+
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
 
 </head>
 
 <body>
 
-    <a href="start.html"><img src="images/logo.jpeg" height="100%" width="100%" title="klick to start"/></a>
+
+    <a href="https://hitze11.github.io/start.html" class="enter-button">Enter</a>
 
 
 </body>
 
+<footer>
+    <div id="counter">
+        <script language="JavaScript"
+            src="https://www.besucherzaehler-kostenlos.de/js/counter.js.php?count=1&id=hitze11.github.io&start=000000&design=4d"></script>
+    </div>
+
+    <style>
+        #counter {
+            position: fixed;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background-color: transparent;
+            text-align: center;
+        }
+    </style>
+
+
+</footer>
 
 
 
