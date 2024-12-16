@@ -44,7 +44,7 @@ input[type="text"] {
     width: 100%;
     height: 100%;
     font-size: 1rem;
-    aria-label: "Neue Aufgabe hinzufügen";
+    initial-letter: "Neue Aufgabe hinzufügen";
 }
 
 button {
@@ -56,7 +56,7 @@ button {
     border: none;
     cursor: pointer;
     transition: background-color 0.3s;
-    aria-label: "Aufgabe hinzufügen";
+    initial-letter: "Aufgabe hinzufügen";
 }
 
 button:hover {
@@ -80,7 +80,7 @@ li {
 
 input[type="checkbox"] {
     margin-right: 10px;
-    aria-label: "Aufgabe erledigen";
+    initial-letter: "Aufgabe erledigen";
 }
 
 li button {
@@ -91,12 +91,12 @@ li button {
     border: none;
     cursor: pointer;
     transition: background-color 0.3s;
-    aria-label: "Aufgabe löschen";
+    initial-letter: "Aufgabe löschen";
 }
 
 
 li button[disabled] {
-    background-color: #cccccc; 
+    background-color: #cccccc;
     cursor: not-allowed;
 }
 
@@ -135,10 +135,10 @@ li.completed button:last-child:hover {
 
 input[type="checkbox"] {
     margin-right: 10px;
-    appearance: none; 
+    appearance: none;
     width: 20px;
     height: 20px;
-    border: 2px solid #0078d7; 
+    border: 2px solid #0078d7;
     border-radius: 4px;
     background-color: #fff;
     cursor: pointer;
@@ -147,8 +147,8 @@ input[type="checkbox"] {
 
 
 input[type="checkbox"]:checked {
-    background-color: #28a745; 
-    border-color: #28a745; 
+    background-color: #28a745;
+    border-color: #28a745;
 }
 
 input[type="checkbox"]:not(:checked) {
