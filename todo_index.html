@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="de">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,10 +14,9 @@
             <button type="submit" aria-label="Aufgabe hinzufügen">Hinzufügen</button>
         </form>
         <ul id="task-list">
-
         </ul>
         <div class="info">
-            <p>Verwalte deine täglichen Aufgaben einfach und übersichtlich!</p>
+            <p>Todos!!!</p>
         </div>
     </div>
 
@@ -45,6 +44,7 @@
                 } else {
                     li.classList.remove("completed");
                 }
+                toggleDeleteButton();
             });
 
             const span = document.createElement("span");
@@ -56,6 +56,7 @@
             deleteButton.addEventListener("click", () => {
                 taskList.removeChild(li);
             });
+            deleteButton.disabled = true;
 
             const doneButton = document.createElement("button");
             doneButton.textContent = "Erledigt";
@@ -63,6 +64,7 @@
             doneButton.addEventListener("click", () => {
                 li.classList.toggle("completed");
                 checkbox.checked = !checkbox.checked;
+                toggleDeleteButton();
             });
 
             li.appendChild(checkbox);
@@ -70,6 +72,14 @@
             li.appendChild(doneButton);
             li.appendChild(deleteButton);
             taskList.appendChild(li);
+
+            function toggleDeleteButton() {
+                if (checkbox.checked || li.classList.contains("completed")) {
+                    deleteButton.disabled = false;
+                } else {
+                    deleteButton.disabled = true;
+                }
+            }
         }
     </script>
 </body>
