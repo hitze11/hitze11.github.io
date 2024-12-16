@@ -90,11 +90,7 @@ input[type="checkbox"] {
     aria-label: "Aufgabe erledigen";
 }
 
-li.completed {
-    text-decoration: line-through;
-    background-color: #d9534f;
-    color: #ffffff;
-}
+
 
 li button {
     background-color: #d9534f;
