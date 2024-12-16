@@ -1,0 +1,11 @@
+let x = 10;
+let y = 5;
+let sum = x + y;
+console.log(sum);
+
+let x = 10
+let y = 5
+let product = x + y
+console.log(product)
+
+es kommt zum Syntaxfehler

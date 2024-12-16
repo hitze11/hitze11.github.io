@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do App</title>
+    <link rel="stylesheet" href="styles/todostyle.css">
+</head>
+<body>
+    <div class="app-container">
+        <h1>Meine To-Do Liste</h1>
+        <form id="task-form">
+            <input type="text" id="task-input" placeholder="Neue Aufgabe hinzufügen" aria-label="Neue Aufgabe hinzufügen">
+            <button type="submit" aria-label="Aufgabe hinzufügen">Hinzufügen</button>
+        </form>
+        <ul id="task-list">
+
+        </ul>
+        <div class="info">
+            <p>Verwalte deine täglichen Aufgaben einfach und übersichtlich!</p>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById("task-form").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const taskInput = document.getElementById("task-input");
+            const taskText = taskInput.value.trim();
+            if (taskText !== "") {
+                addTask(taskText);
+                taskInput.value = "";
+            }
+        });
+
+        function addTask(taskText) {
+            const taskList = document.getElementById("task-list");
+            const li = document.createElement("li");
+
+            const checkbox = document.createElement("input");
+            checkbox.type = "checkbox";
+            checkbox.setAttribute("aria-label", "Aufgabe erledigen");
+            checkbox.addEventListener("change", () => {
+                if (checkbox.checked) {
+                    li.classList.add("completed");
+                } else {
+                    li.classList.remove("completed");
+                }
+            });
+
+            const span = document.createElement("span");
+            span.textContent = taskText;
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Löschen";
+            deleteButton.setAttribute("aria-label", "Aufgabe löschen");
+            deleteButton.addEventListener("click", () => {
+                taskList.removeChild(li);
+            });
+
+            const doneButton = document.createElement("button");
+            doneButton.textContent = "Erledigt";
+            doneButton.setAttribute("aria-label", "Aufgabe als erledigt markieren");
+            doneButton.addEventListener("click", () => {
+                li.classList.toggle("completed");
+                checkbox.checked = !checkbox.checked;
+            });
+
+            li.appendChild(checkbox);
+            li.appendChild(span);
+            li.appendChild(doneButton);
+            li.appendChild(deleteButton);
+            taskList.appendChild(li);
+        }
+    </script>
+</body>
+</html>
