@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="de">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do App</title>
-    <link rel="stylesheet" href="styles/todostyle.css">
 </head>
 <body>
     <div class="app-container">
@@ -19,67 +18,6 @@
         </div>
     </div>
 
-    <script>
-        document.getElementById("task-form").addEventListener("submit", function(e) {
-            e.preventDefault();
-            const taskInput = document.getElementById("task-input");
-            const taskText = taskInput.value.trim();
-            if (taskText !== "") {
-                addTask(taskText);
-                taskInput.value = "";
-            }
-        });
-
-        function addTask(taskText) {
-            const taskList = document.getElementById("task-list");
-            const li = document.createElement("li");
-
-            const checkbox = document.createElement("input");
-            checkbox.type = "checkbox";
-            checkbox.setAttribute("aria-label", "Aufgabe erledigen");
-            checkbox.addEventListener("change", () => {
-                if (checkbox.checked) {
-                    li.classList.add("completed");
-                } else {
-                    li.classList.remove("completed");
-                }
-                toggleDeleteButton();
-            });
-
-            const span = document.createElement("span");
-            span.textContent = taskText;
-
-            const deleteButton = document.createElement("button");
-            deleteButton.textContent = "Löschen";
-            deleteButton.setAttribute("aria-label", "Aufgabe löschen");
-            deleteButton.addEventListener("click", () => {
-                taskList.removeChild(li);
-            });
-            deleteButton.disabled = true;
-
-            const doneButton = document.createElement("button");
-            doneButton.textContent = "Erledigt";
-            doneButton.setAttribute("aria-label", "Aufgabe als erledigt markieren");
-            doneButton.addEventListener("click", () => {
-                li.classList.toggle("completed");
-                checkbox.checked = !checkbox.checked;
-                toggleDeleteButton();
-            });
-
-            li.appendChild(checkbox);
-            li.appendChild(span);
-            li.appendChild(doneButton);
-            li.appendChild(deleteButton);
-            taskList.appendChild(li);
-
-            function toggleDeleteButton() {
-                if (checkbox.checked || li.classList.contains("completed")) {
-                    deleteButton.disabled = false;
-                } else {
-                    deleteButton.disabled = true;
-                }
-            }
-        }
-    </script>
+    <script src="script.js" defer></script>
 </body>
 </html>
