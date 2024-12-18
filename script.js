@@ -128,8 +128,7 @@ function addTask(taskText) {
 
 
     todos.push(newTask);
-
-
+    savetodos();
     renderTasks();
 }
 
@@ -213,3 +212,8 @@ function loadtodos() {
     }
 
 }
+
+window.addEventListener("DOMContentLoaded", () => {
+    loadtodos();
+    renderTasks();
+})
