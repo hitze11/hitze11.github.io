@@ -102,51 +102,47 @@ style.innerHTML = `
     }
 `;
 
-document.head.appendChild(style); // Füge das CSS zu head hinzu
+document.head.appendChild(style);
 
-// Array, das die Aufgaben speichert
 let todos = [];
 
-// Selektiere das Formular und das Eingabefeld
 const taskForm = document.getElementById("task-form");
 const taskInput = document.getElementById("task-input");
 const taskList = document.getElementById("task-list");
 
-// EventListener für das Formular hinzufügen
-taskForm.addEventListener("submit", function(e) {
+taskForm.addEventListener("submit", function (e) {
     e.preventDefault();
     const taskText = taskInput.value.trim();
     if (taskText !== "") {
         addTask(taskText);
-        taskInput.value = "";  // Eingabefeld nach dem Hinzufügen leeren
+        taskInput.value = "";
     }
 });
 
-// Funktion, um eine neue Aufgabe hinzuzufügen
+
 function addTask(taskText) {
-    // Erzeuge eine neue Aufgabe als Objekt
+
     const newTask = {
-        id: Date.now(), // Verwende die aktuelle Zeit als einzigartige ID
+        id: Date.now(),
         text: taskText,
         completed: false
     };
 
-    // Füge die Aufgabe zum Todos-Array hinzu
+
     todos.push(newTask);
 
-    // Render die Aufgabenliste neu
+
     renderTasks();
 }
 
-// Funktion, um die Aufgaben zu rendern
 function renderTasks() {
-    // Leere die Liste, bevor neue Aufgaben angezeigt werden
+
     taskList.innerHTML = "";
 
-    // Iteriere über alle Aufgaben und erstelle die HTML-Elemente
+
     todos.forEach(task => {
         const li = document.createElement("li");
-        li.dataset.id = task.id; // ID der Aufgabe als data-Attribut setzen
+        li.dataset.id = task.id;
 
         const checkbox = document.createElement("input");
         checkbox.type = "checkbox";
@@ -165,36 +161,35 @@ function renderTasks() {
         deleteButton.textContent = "Löschen";
         deleteButton.setAttribute("aria-label", "Aufgabe löschen");
         deleteButton.addEventListener("click", () => deleteTask(task.id));
-        deleteButton.disabled = !task.completed; // Löschen-Button nur aktiv, wenn die Aufgabe erledigt ist
+        deleteButton.disabled = !task.completed;
 
-        // Der "Erledigt"-Button, der den Status der Aufgabe umschaltet
+
         const doneButton = document.createElement("button");
         doneButton.textContent = task.completed ? "ernuet hinzufügen" : "Erledigt";
         doneButton.setAttribute("aria-label", "Aufgabe als erledigt markieren");
         doneButton.classList.add("done-button");
         doneButton.addEventListener("click", () => toggleCompletion(task.id));
 
-        // Füge alle Elemente zum Listeneintrag hinzu
         li.appendChild(checkbox);
         li.appendChild(span);
         li.appendChild(doneButton);
         li.appendChild(deleteButton);
 
-        // Füge den Listeneintrag zur Aufgabenliste hinzu
+
         taskList.appendChild(li);
     });
 }
 
-// Funktion, um den Status eines Auftrages zu ändern
+
 function toggleCompletion(id) {
     const task = todos.find(task => task.id === id);
     task.completed = !task.completed;
-    renderTasks(); // Liste neu rendern
+    renderTasks();
 }
 
-// Funktion, um einen Eintrag zu löschen
+
 function deleteTask(id) {
-    // Filtere die Aufgabe aus dem Array
+
     todos = todos.filter(task => task.id !== id);
-    renderTasks(); // Liste nach der Löschung neu rendern
+    renderTasks();
 }
