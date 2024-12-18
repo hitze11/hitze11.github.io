@@ -201,3 +201,12 @@ localStorage.setItem("todos", JSON.stringify(todos));
 
 }
 
+function loadtodos() {
+
+    const savedtodos = localStorage.getItem("todos");
+
+    if (savdtodos) {
+        todos = JSON.parse(savedtodos);
+    } 
+
+}
