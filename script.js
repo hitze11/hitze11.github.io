@@ -125,7 +125,7 @@ function addTask(taskText) {
     };
 
     todos.push(newTask);
-    saveTodos();
+    savetodos();
     renderTasks();
 }
 
@@ -173,31 +173,31 @@ function renderTasks() {
 function toggleCompletion(id) {
     const task = todos.find(task => task.id === id);
     task.completed = !task.completed;
-    saveTodos();
+    savetodos();
     renderTasks();
 }
 
 function deleteTask(id) {
     todos = todos.filter(task => task.id !== id);
-    saveTodos();
+    savetodos();
     renderTasks();
 }
 
-function saveTodos() {
+function savetodos() {
     localStorage.setItem("todos", JSON.stringify(todos));
 }
 
-function loadTodos() {
-    const savedTodos = localStorage.getItem("todos");
+function loadtodos() {
+    const savedtodos = localStorage.getItem("todos");
 
-    if (savedTodos) {
-        todos = JSON.parse(savedTodos);
+    if (savedtodos) {
+        todos = JSON.parse(savedtodos);
     } else {
         todos = [];
     }
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-    loadTodos();
+    loadtodos();
     renderTasks();
 });
