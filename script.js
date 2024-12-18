@@ -182,6 +182,7 @@ function renderTasks() {
 function toggleCompletion(id) {
     const task = todos.find(task => task.id === id);
     task.completed = !task.completed;
+    savetodos();
     renderTasks();
 }
 
@@ -189,5 +190,7 @@ function toggleCompletion(id) {
 function deleteTask(id) {
 
     todos = todos.filter(task => task.id !== id);
+    saveTodos();
     renderTasks();
+
 }
