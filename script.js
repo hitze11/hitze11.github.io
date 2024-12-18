@@ -117,25 +117,20 @@ taskForm.addEventListener("submit", function (e) {
     }
 });
 
-
 function addTask(taskText) {
-
     const newTask = {
         id: Date.now(),
         text: taskText,
         completed: false
     };
 
-
     todos.push(newTask);
-    savetodos();
+    saveTodos();
     renderTasks();
 }
 
 function renderTasks() {
-
     taskList.innerHTML = "";
-
 
     todos.forEach(task => {
         const li = document.createElement("li");
@@ -160,9 +155,8 @@ function renderTasks() {
         deleteButton.addEventListener("click", () => deleteTask(task.id));
         deleteButton.disabled = !task.completed;
 
-
         const doneButton = document.createElement("button");
-        doneButton.textContent = task.completed ? "ernuet hinzufügen" : "Erledigt";
+        doneButton.textContent = task.completed ? "erneut hinzufügen" : "Erledigt";
         doneButton.setAttribute("aria-label", "Aufgabe als erledigt markieren");
         doneButton.classList.add("done-button");
         doneButton.addEventListener("click", () => toggleCompletion(task.id));
@@ -172,48 +166,38 @@ function renderTasks() {
         li.appendChild(doneButton);
         li.appendChild(deleteButton);
 
-
         taskList.appendChild(li);
     });
 }
 
-
 function toggleCompletion(id) {
     const task = todos.find(task => task.id === id);
     task.completed = !task.completed;
-    savetodos();
+    saveTodos();
     renderTasks();
 }
 
-
 function deleteTask(id) {
-
     todos = todos.filter(task => task.id !== id);
     saveTodos();
     renderTasks();
-
 }
 
-
-function savetodos() {
-localStorage.setItem("todos", JSON.stringify(todos));
-
+function saveTodos() {
+    localStorage.setItem("todos", JSON.stringify(todos));
 }
 
-function loadtodos() {
+function loadTodos() {
+    const savedTodos = localStorage.getItem("todos");
 
-    const savedtodos = localStorage.getItem("todos");
-
-    if (savdtodos) {
-        todos = JSON.parse(savedtodos);
-    }  
-    else {
+    if (savedTodos) {
+        todos = JSON.parse(savedTodos);
+    } else {
         todos = [];
     }
-
 }
 
 window.addEventListener("DOMContentLoaded", () => {
-    loadtodos();
+    loadTodos();
     renderTasks();
-})
+});
