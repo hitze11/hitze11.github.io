@@ -207,6 +207,9 @@ function loadtodos() {
 
     if (savdtodos) {
         todos = JSON.parse(savedtodos);
-    } 
+    }  
+    else {
+        todos = [];
+    }
 
 }
