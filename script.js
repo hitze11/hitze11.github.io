@@ -194,3 +194,10 @@ function deleteTask(id) {
     renderTasks();
 
 }
+
+
+function savetodos() {
+localStorage.setItem("todos", JSON.stringify(todos));
+
+}
+
