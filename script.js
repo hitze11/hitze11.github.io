@@ -1,5 +1,3 @@
-// CSS im JavaScript definieren und anwenden
-
 const style = document.createElement("style");
 style.innerHTML = `
     body {
