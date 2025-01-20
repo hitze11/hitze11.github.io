@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" type="image/svg+xml" href="/thumb.svg" />
+  <title>Rock Paper Scissors</title>
+  <style>
+    /* Allgemeine Button-Stile */
+    .button {
+      display: block;
+      text-align: center;
+      margin: 10px auto;
+      padding: 20px;
+      border-radius: 50%;
+      border-width: 8px;
+      border-style: solid;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    
+    .button-paper {
+      background-color: white;
+      border-color: #54d80d;
+    }
+
+    .button-scissors {
+      background-color: white;
+      border-color: #de3b5a;
+    }
+
+    .button-rock {
+      background-color: white;
+      border-color: #10ddeb;
+    }
+
+    .button-rules {
+      background-color: transparent;
+      border-color: black;
+      color: black;
+    }
+
+  
+    .button:hover {
+      color: white; 
+    }
+
+    .button-paper:hover {
+      background-color: #54d80d;
+      border-color: white;
+    }
+
+    .button-scissors:hover {
+      background-color: #de3b5a;
+      border-color: white;
+    }
+
+    .button-rock:hover {
+      background-color: #10ddeb;
+      border-color: white;
+    }
+
+    .button-rules:hover {
+      background-color: black;
+      color: white;
+    }
+
+  
+    .button img {
+      width: 50px;
+      height: 50px;
+      transition: all 0.3s ease;
+    }
+
+    .button:hover img {
+      transform: scale(1.2);
+    }
+  </style>
+  <script type="module" crossorigin src="/assets/index-e1Z6sicu.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BLkl5Ce_.css">
+</head>
+
+<body class="container mx-auto font-custom text-white">
+  <div class="absolute size-full top-0 left-0 bg-red-600">
+    <!-- Header-Bereich -->
+    <header class="justify-center items-center flex flex-col mt-20">
+      <h1 class="font-custom text-6xl">Rock Paper Scissors</h1>
+      <div class="text-2xl mt-5 bg-white text-slate-900 font-bold flex flex-col justify-center items-center width-40px p-2 rounded-lg">
+        <span>Score</span>
+        <span id="score">0</span>
+      </div>
+    </header>
+  
+    <!-- Hauptbereich mit Buttons -->
+    <main class="flex flex-col items-center mt-10 space-y-4">
+      <button class="button button-paper size-24" data-choice="paper">
+        <img src="./images/paper.svg" alt="Paper" />
+      </button>
+      <button class="button button-scissors size-24" data-choice="scissors">
+        <img src="./images/scissors.svg" alt="Scissors" />
+      </button>
+      <button class="button button-rock size-24" data-choice="rock">
+        <img src="./images/rock.svg" alt="Rock" />
+      </button>
+      <button class="button button-rules border-2 rounded-full p-4 text-4xl hover:text-6xl text-black" id="rulesbutton">Rules</button>
+    </main>
+  </div>
+
+  <!-- Startbildschirm -->
+  <div class="font-custom absolute top-0 left-0 size-full place-content-center index-1 bg-red-600 text-center" id="startscreen">
+    <h1 class="text-8xl mb-2">Rock</h1>
+    <h2 class="text-8xl mb-2">Paper</h2>
+    <h3 class="text-8xl mb-2">Scissors</h3>
+    <button class="border-2 rounded-full p-4 mt-10 text-4xl hover:text-6xl text-black" id="startbutton">Start Game</button>
+  </div>
+
+  <!-- Regeln -->
+  <div class="hidden absolute flex flex-col justify-center items-center text-center size-full index-1 top-0 left-0" id="rules">
+    <div class="border-2 rounded-xl flex flex-col justify-center items-center text-center bg-red-600">
+      <h2 class="w-40 border-2 text-4xl rounded-full mt-10 p-4">Rules</h2>
+      <p class="m-5 text-3xl">Rock Paper Scissors is a game that is played between two players...</p>
+      <img class="absolute top-80 right-64 size-5 hover:size-8 cursor-pointer" src="./images/close.svg" alt="Close" id="closebutton" />
+    </div>
+  </div>
+
+  <!-- Ergebnisanzeige -->
+  <div class="hidden absolute flex flex-col justify-center items-center size-4/6 index-1 top-40 left-52 border-4 rounded-3xl bg-red-600 text-4xl gap-6" id="results">
+    <h3 class="text-white mt-1 text-7xl font-custom border-8 border-black rounded-full bg-red-600 p-8" id="result">You win</h3>
+    <div class="flex flex-row justify-center items-center">
+      <span>You chose: </span>
+      <img class="size-24 ml-4 mr-4 p-2 bg-white border-8 rounded-full border-black" id="userimg" src="" alt="">
+      <div id="userchoice"></div>
+    </div>
+    <div class="flex flex-row justify-center items-center">
+      <span>Computer chose: </span>
+      <img class="size-24 ml-4 mr-4 p-2 bg-white border-8 rounded-full border-black" id="computerimg" src="" alt="">
+      <div id="computerchoice"></div>
+    </div>
+    <button class="border-4 rounded-full p-4 font-custom hover:text-6xl text-black" id="playagain">Play Again</button>
+  </div>
+</body>
+</html>
