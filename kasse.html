@@ -57,14 +57,14 @@
       apiKey: "AIzaSyCImvY0Vz0ZosyW5WAZUvtXqxwz0V4y9Ic",
       authDomain: "db-halle.firebaseapp.com",
       projectId: "db-halle",
-      storageBucket: "db-halle.firebasestorage.app",
+      storageBucket: "db-halle.firebaseapp.com",
       messagingSenderId: "641920947526",
       appId: "1:641920947526:web:684cc569bccc343c1d0147",
       measurementId: "G-LHNPNX6N61"
     };
 
     // Firebase initialisieren
-    const app = firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(firebaseConfig);
     const db = firebase.firestore();
 
     document.addEventListener('DOMContentLoaded', () => {
