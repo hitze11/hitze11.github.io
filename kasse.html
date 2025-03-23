@@ -1,10 +1,11 @@
+<!-- filepath: c:\Users\ronny\workspace\ronnyhalle\ronnyhalle\kasse.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hallenkasse</title>
-   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="flex items-center justify-center min-h-screen bg-gray-100">
   <div class="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
@@ -58,14 +59,14 @@
       const closeModalButton = document.getElementById('closeModal');
       const entriesList = document.getElementById('entriesList');
 
-      let totalAmount = parseFloat(localStorage.getItem('totalAmount')) || 0;
-      let entries = JSON.parse(localStorage.getItem('entries')) || [];
+      let totalAmount = 0;
+      let entries = [];
 
-      totalAmountElement.textContent = totalAmount.toFixed(2);
-
-      const updateLocalStorage = () => {
-        localStorage.setItem('totalAmount', totalAmount);
-        localStorage.setItem('entries', JSON.stringify(entries));
+      const fetchEntries = async () => {
+        const response = await fetch('http://localhost:5000/entries');
+        entries = await response.json();
+        totalAmount = entries.reduce((sum, entry) => sum + entry.amount, 0);
+        totalAmountElement.textContent = totalAmount.toFixed(2);
       };
 
       const renderEntries = () => {
@@ -83,17 +84,25 @@
         });
       };
 
-      form.addEventListener('submit', (e) => {
+      form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const person = document.getElementById('person').value;
         const description = document.getElementById('description').value;
         const amount = parseFloat(document.getElementById('amount').value);
 
         if (!isNaN(amount)) {
+          const entry = { person, description, amount, date: new Date().toLocaleString() };
+          const response = await fetch('http://localhost:5000/entries', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(entry),
+          });
+          const newEntry = await response.json();
+          entries.push(newEntry);
           totalAmount += amount;
           totalAmountElement.textContent = totalAmount.toFixed(2);
-          entries.push({ person, description, amount, date: new Date().toLocaleString() });
-          updateLocalStorage();
         }
 
         form.reset();
@@ -107,6 +116,8 @@
       closeModalButton.addEventListener('click', () => {
         modal.classList.add('hidden');
       });
+
+      fetchEntries();
     });
   </script>
 </body>
