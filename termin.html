@@ -56,19 +56,35 @@
   </div>
 
   <script>
-    // Firebase-Konfiguration
+    // Base64-kodierte Firebase-Konfiguration
     const encodedConfig = {
-      apiKey: "QUl6YVN5Q0ltdlkwVnowWm9zeVc1V0FaVXZ0WHF4d3owVjR5OUlj",
-      authDomain: "ZGItaGFsbGUuZmlyZWJhc2VhcHAuY29t",
-      projectId: "ZGItaGFsbGU=",
-      storageBucket: "ZGItaGFsbGUuZmlyZWJhc2VzdG9yYWdlLmFwcA==",
-      messagingSenderId: "NjQxOTIwOTQ3NTI2",
-      appId: "MTo2NDE5MjA5NDc1MjY6d2ViOjY4NGNjNTY5YmNjYzM0M2MxZDAxNDc=",
-      measurementId: "Ry1MSE5QTlg2TjYx"
+      apiKey: "QUl6YVN5QWU2MUNYWHltRXBhYTdIM1hnQVJFV0pyQ25tRUJvS1VB",
+      authDomain: "dGVybWluLTJiZTVjLmZpcmViYXNlYXBwLmNvbQ==",
+      projectId: "dGVybWluLTJiZTVj",
+      storageBucket: "dGVybWluLTJiZTVjLmZpcmViYXNlc3RvcmFnZS5hcHA=",
+      messagingSenderId: "NzgwOTIxODc2MTY0",
+      appId: "MTo3ODA5MjE4NzYxNjQ6d2ViOjc3Y2FiNTNmNzQ3MDMyNTI4MDIzOTE=",
+      measurementId: "Ry02SFkwWTUwUjgy"
+    };
+
+    // Funktion zum Dekodieren von Base64
+    const decodeBase64 = (str) => {
+      return decodeURIComponent(atob(str).split('').map(c => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)).join(''));
+    };
+
+    // Dekodieren der Firebase-Konfiguration
+    const decodedConfig = {
+      apiKey: decodeBase64(encodedConfig.apiKey),
+      authDomain: decodeBase64(encodedConfig.authDomain),
+      projectId: decodeBase64(encodedConfig.projectId),
+      storageBucket: decodeBase64(encodedConfig.storageBucket),
+      messagingSenderId: decodeBase64(encodedConfig.messagingSenderId),
+      appId: decodeBase64(encodedConfig.appId),
+      measurementId: decodeBase64(encodedConfig.measurementId)
     };
 
     // Firebase initialisieren
-    firebase.initializeApp(firebaseConfig);
+    firebase.initializeApp(decodedConfig);
     const db = firebase.firestore();
 
     document.addEventListener('DOMContentLoaded', () => {

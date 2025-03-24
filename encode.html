@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Firebase Config Encoder</title>
+</head>
+<body>
+  <script>
+    const firebaseConfig = {
+  apiKey: "AIzaSyAe61CXXymEpaa7H3XgAREWJrCnmEBoKUA",
+  authDomain: "termin-2be5c.firebaseapp.com",
+  projectId: "termin-2be5c",
+  storageBucket: "termin-2be5c.firebasestorage.app",
+  messagingSenderId: "780921876164",
+  appId: "1:780921876164:web:77cab53f74703252802391",
+  measurementId: "G-6HY0Y50R82"
+};
+
+    const encodedConfig = {
+      apiKey: btoa(firebaseConfig.apiKey),
+      authDomain: btoa(firebaseConfig.authDomain),
+      projectId: btoa(firebaseConfig.projectId),
+      storageBucket: btoa(firebaseConfig.storageBucket),
+      messagingSenderId: btoa(firebaseConfig.messagingSenderId),
+      appId: btoa(firebaseConfig.appId),
+      measurementId: btoa(firebaseConfig.measurementId)
+    };
+
+    console.log(encodedConfig);
+  </script>
+</body>
+</html>
