@@ -5,8 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Hallenkasse</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Richtiges Firebase CDN -->
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 </head>
@@ -59,93 +57,75 @@
   </div>
 
   <script>
-    // ✅ Firebase-Konfiguration
-    const firebaseConfig = {
-      apiKey: "AIzaSyCImvY0Vz0ZosyW5WAZUvtXqxwz0V4y9Ic",
-      authDomain: "db-halle.firebaseapp.com",
-      projectId: "db-halle",
-      storageBucket: "db-halle.appspot.com",
-      messagingSenderId: "641920947526",
-      appId: "1:641920947526:web:684cc569bccc343c1d0147",
-      measurementId: "G-LHNPNX6N61"
-    };
+    // Firebase initialisieren
+    fetch('/config')
+      .then(response => response.json())
+      .then(config => {
+        firebase.initializeApp(config);
+        const db = firebase.firestore();
 
-    // ✅ Firebase initialisieren
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+        document.addEventListener('DOMContentLoaded', () => {
+          const form = document.getElementById('kasseForm');
+          const totalAmountElement = document.getElementById('totalAmount');
+          const modal = document.getElementById('modal');
+          const toggleModalButton = document.getElementById('toggleModal');
+          const closeModalButton = document.getElementById('closeModal');
+          const entriesList = document.getElementById('entriesList');
 
-    document.addEventListener('DOMContentLoaded', () => {
-      const form = document.getElementById('kasseForm');
-      const totalAmountElement = document.getElementById('totalAmount');
-      const modal = document.getElementById('modal');
-      const toggleModalButton = document.getElementById('toggleModal');
-      const closeModalButton = document.getElementById('closeModal');
-      const entriesList = document.getElementById('entriesList');
+          let totalAmount = 0;
+          let entries = [];
 
-      let totalAmount = 0;
-      let entries = [];
-
-      // ✅ Daten aus Firebase abrufen
-      const fetchEntries = async () => {
-        const querySnapshot = await db.collection('entries').get();
-        entries = querySnapshot.docs.map(doc => doc.data());
-        totalAmount = entries.reduce((sum, entry) => sum + entry.amount, 0);
-        totalAmountElement.textContent = totalAmount.toFixed(2);
-      };
-
-      // ✅ Einträge anzeigen
-      const renderEntries = () => {
-        entriesList.innerHTML = '';
-        entries.forEach(entry => {
-          const li = document.createElement('li');
-          li.className = 'mb-2 border-b pb-2';
-          li.innerHTML = `
-            <p><strong>Wer:</strong> ${entry.person}</p>
-            <p><strong>Was:</strong> ${entry.description}</p>
-            <p><strong>Betrag:</strong> ${entry.amount.toFixed(2)} €</p>
-            <p><strong>Datum:</strong> ${entry.date}</p>
-          `;
-          entriesList.appendChild(li);
-        });
-      };
-
-      // ✅ Formulardaten speichern
-      form.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const person = document.getElementById('person').value;
-        const description = document.getElementById('description').value;
-        const amount = parseFloat(document.getElementById('amount').value);
-
-        if (!isNaN(amount) && person && description) {
-          const entry = { 
-            person, 
-            description, 
-            amount, 
-            date: new Date().toLocaleString()
+          const fetchEntries = async () => {
+            const querySnapshot = await db.collection('entries').get();
+            entries = querySnapshot.docs.map(doc => doc.data());
+            totalAmount = entries.reduce((sum, entry) => sum + entry.amount, 0);
+            totalAmountElement.textContent = totalAmount.toFixed(2);
           };
 
-          await db.collection('entries').add(entry);
-          entries.push(entry);
-          totalAmount += amount;
-          totalAmountElement.textContent = totalAmount.toFixed(2);
-        }
+          const renderEntries = () => {
+            entriesList.innerHTML = '';
+            entries.forEach((entry, index) => {
+              const li = document.createElement('li');
+              li.className = 'mb-2';
+              li.innerHTML = `
+                <p><strong>Wer:</strong> ${entry.person}</p>
+                <p><strong>Was:</strong> ${entry.description}</p>
+                <p><strong>Betrag:</strong> ${entry.amount} €</p>
+                <p><strong>Datum:</strong> ${entry.date}</p>
+              `;
+              entriesList.appendChild(li);
+            });
+          };
 
-        form.reset();
+          form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const person = document.getElementById('person').value;
+            const description = document.getElementById('description').value;
+            const amount = parseFloat(document.getElementById('amount').value);
+
+            if (!isNaN(amount)) {
+              const entry = { person, description, amount, date: new Date().toLocaleString() };
+              await db.collection('entries').add(entry);
+              entries.push(entry);
+              totalAmount += amount;
+              totalAmountElement.textContent = totalAmount.toFixed(2);
+            }
+
+            form.reset();
+          });
+
+          toggleModalButton.addEventListener('click', () => {
+            modal.classList.toggle('hidden');
+            renderEntries();
+          });
+
+          closeModalButton.addEventListener('click', () => {
+            modal.classList.add('hidden');
+          });
+
+          fetchEntries();
+        });
       });
-
-      // ✅ Modal anzeigen & schließen
-      toggleModalButton.addEventListener('click', () => {
-        modal.classList.toggle('hidden');
-        renderEntries();
-      });
-
-      closeModalButton.addEventListener('click', () => {
-        modal.classList.add('hidden');
-      });
-
-      // ✅ Daten abrufen, wenn die Seite geladen wird
-      fetchEntries();
-    });
   </script>
 </body>
 </html>
