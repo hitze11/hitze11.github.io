@@ -9,9 +9,9 @@
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
   <style>
     body {
-      background: url('hallelogobg.png') no-repeat center center fixed;
+      background: url('public/hallelogobg.png') no-repeat center center fixed;
       background-size: 50%;
-      opacity: 0.5;
+      opacity: 0.8;
     }
   </style>
 </head>
@@ -34,8 +34,14 @@
       </div>
       <div class="mb-4">
         <label class="block font-bold text-teal-400">
-          Uhrzeit:
-          <input type="time" id="time" class="text-black mt-1 block w-full bg-teal-200 border border-teal-900 rounded-md shadow-sm focus:ring">
+          Uhrzeit von:
+          <input type="time" id="timeFrom" class="text-black mt-1 block w-full bg-teal-200 border border-teal-900 rounded-md shadow-sm focus:ring">
+        </label>
+      </div>
+      <div class="mb-4">
+        <label class="block font-bold text-teal-400">
+          Uhrzeit bis:
+          <input type="time" id="timeTo" class="text-black mt-1 block w-full bg-teal-200 border border-teal-900 rounded-md shadow-sm focus:ring">
         </label>
       </div>
       <button type="submit" class="font-bold w-full bg-teal-400 text-black py-2 px-4 rounded-md hover:bg-teal-900 shadow-lg shadow-teal-200">
@@ -71,17 +77,24 @@
 
       const fetchTermine = async () => {
         const querySnapshot = await db.collection('termine').get();
+        const now = new Date();
         terminList.innerHTML = '';
         querySnapshot.forEach(doc => {
           const termin = doc.data();
-          const li = document.createElement('li');
-          li.className = 'mb-2';
-          li.innerHTML = `
-            <p><strong>Titel:</strong> ${termin.title}</p>
-            <p><strong>Datum:</strong> ${termin.date}</p>
-            <p><strong>Uhrzeit:</strong> ${termin.time}</p>
-          `;
-          terminList.appendChild(li);
+          const terminEnd = new Date(`${termin.date}T${termin.timeTo}`);
+          if (terminEnd > now) {
+            const li = document.createElement('li');
+            li.className = 'mb-2';
+            li.innerHTML = `
+              <p><strong>Titel:</strong> ${termin.title}</p>
+              <p><strong>Datum:</strong> ${termin.date}</p>
+              <p><strong>Uhrzeit:</strong> ${termin.timeFrom} - ${termin.timeTo}</p>
+            `;
+            terminList.appendChild(li);
+          } else {
+            // Optional: Löschen Sie abgelaufene Termine aus der Datenbank
+            db.collection('termine').doc(doc.id).delete();
+          }
         });
       };
 
@@ -89,10 +102,11 @@
         e.preventDefault();
         const title = document.getElementById('title').value;
         const date = document.getElementById('date').value;
-        const time = document.getElementById('time').value;
+        const timeFrom = document.getElementById('timeFrom').value;
+        const timeTo = document.getElementById('timeTo').value;
 
-        if (title && date && time) {
-          const termin = { title, date, time };
+        if (title && date && timeFrom && timeTo) {
+          const termin = { title, date, timeFrom, timeTo };
           await db.collection('termine').add(termin);
           fetchTermine();
         }

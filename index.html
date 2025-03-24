@@ -8,23 +8,33 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     body {
-      background: url('public\hallelogobg.png') no-repeat center center fixed;
+      background: url('public/hallelogobg.png') no-repeat center center fixed;
       background-size: 50%;
       opacity: 0.5;
     }
-    #checkout-button {
+    .button-container {
       position: absolute;
-      top: 10px;
-      left: 10px;
+      top: 50px; /* Adjusted position to move the buttons further down */
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 10px;
     }
   </style>
 </head>
 <body class="flex items-center justify-center min-h-screen bg-black">
   <div id="root"></div>
-  <a href="kasse.html">
-    <button id="checkout-button" class="bg-black hover:bg-black text-teal-400 font-bold py-2 px-4 rounded-full shadow-lg shadow-teal-400">
-      Zur Kasse
-    </button>
-  </a>
+  <div class="button-container">
+    <a href="kasse.html">
+      <button id="checkout-button" class="bg-black hover:bg-black text-teal-400 font-bold py-2 px-4 rounded-full shadow-lg shadow-teal-400">
+        Zur Kasse
+      </button>
+    </a>
+    <a href="termin.html">
+      <button id="termin-button" class="bg-black hover:bg-black text-teal-400 font-bold py-2 px-4 rounded-full shadow-lg shadow-teal-400">
+        Zum Terminplaner
+      </button>
+    </a>
+  </div>
 </body>
 </html>
