@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Terminplaner</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <style>
+    body {
+      background: url('hallelogobg.png') no-repeat center center fixed;
+      background-size: 50%;
+      opacity: 0.5;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-black">
+  <div class="max-w-md w-full p-6 bg-black rounded-lg shadow-md shadow-teal-400 border-teal-900 border rounded-lg">
+    <h1 class="text-center text-2xl font-bold text-teal-400 mb-6">Terminplaner</h1>
+    
+    <form id="terminForm">
+      <div class="mb-4">
+        <label class="block font-bold text-teal-400">
+          Titel:
+          <input type="text" id="title" class="text-black mt-1 block w-full bg-teal-200 border border-teal-900 rounded-md shadow-lg focus:ring">
+        </label>
+      </div>
+      <div class="mb-4">
+        <label class="block font-bold text-teal-400">
+          Datum:
+          <input type="date" id="date" class="text-black mt-1 block w-full bg-teal-200 border border-teal-900 rounded-md shadow-sm focus:ring">
+        </label>
+      </div>
+      <div class="mb-4">
+        <label class="block font-bold text-teal-400">
+          Uhrzeit:
+          <input type="time" id="time" class="text-black mt-1 block w-full bg-teal-200 border border-teal-900 rounded-md shadow-sm focus:ring">
+        </label>
+      </div>
+      <button type="submit" class="font-bold w-full bg-teal-400 text-black py-2 px-4 rounded-md hover:bg-teal-900 shadow-lg shadow-teal-200">
+        Termin hinzufügen
+      </button>
+    </form>
+
+    <div class="mt-6">
+      <h2 class="text-teal-400 text-xl font-bold">Termine</h2>
+      <ul id="terminList" class="text-teal-400"></ul>
+    </div>
+  </div>
+
+  <script>
+    // Firebase-Konfiguration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCImvY0Vz0ZosyW5WAZUvtXqxwz0V4y9Ic",
+      authDomain: "db-halle.firebaseapp.com",
+      projectId: "db-halle",
+      storageBucket: "db-halle.appspot.com",
+      messagingSenderId: "641920947526",
+      appId: "1:641920947526:web:684cc569bccc343c1d0147",
+      measurementId: "G-LHNPNX6N61"
+    };
+
+    // Firebase initialisieren
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('terminForm');
+      const terminList = document.getElementById('terminList');
+
+      const fetchTermine = async () => {
+        const querySnapshot = await db.collection('termine').get();
+        terminList.innerHTML = '';
+        querySnapshot.forEach(doc => {
+          const termin = doc.data();
+          const li = document.createElement('li');
+          li.className = 'mb-2';
+          li.innerHTML = `
+            <p><strong>Titel:</strong> ${termin.title}</p>
+            <p><strong>Datum:</strong> ${termin.date}</p>
+            <p><strong>Uhrzeit:</strong> ${termin.time}</p>
+          `;
+          terminList.appendChild(li);
+        });
+      };
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const title = document.getElementById('title').value;
+        const date = document.getElementById('date').value;
+        const time = document.getElementById('time').value;
+
+        if (title && date && time) {
+          const termin = { title, date, time };
+          await db.collection('termine').add(termin);
+          fetchTermine();
+        }
+
+        form.reset();
+      });
+
+      fetchTermine();
+    });
+  </script>
+</body>
+</html>
