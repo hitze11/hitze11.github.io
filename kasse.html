@@ -8,124 +8,131 @@
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 </head>
-<body class="flex items-center justify-center min-h-screen bg-gray-100">
-  <div class="max-w-md w-full p-6 bg-white rounded-lg shadow-md">
-    <h1 class="text-2xl font-bold mb-6">Hallenkasse</h1>
+<body class="flex items-center justify-center min-h-screen bg-black">
+  <div class="max-w-md w-full p-6 bg-black rounded-lg shadow-md shadow-teal-400 border-teal-900 border rounded-lg">
+    <h1 class="text-center text-2xl font-bold text-teal-400 mb-6">Hallenkasse</h1>
     
     <form id="kasseForm">
       <div class="mb-4">
-        <label class="block text-gray-700">
-          Wer:
-          <input type="text" id="person" class="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-md shadow-sm focus:ring">
+        <label class="block font-bold text-teal-400">
+          Wer?:
+          <input type="text" id="person" class="text-black mt-1 block w-full bg-teal-200 border border-teal-900 rounded-md shadow-lg focus:ring">
         </label>
       </div>
       <div class="mb-4">
-        <label class="block text-gray-700">
+        <label class="block font-bold text-teal-400">
           Was?:
-          <input type="text" id="description" class="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-md shadow-sm focus:ring">
+          <input type="text" id="description" class="text-black mt-1 block w-full bg-teal-200 border border-teal-900 rounded-md shadow-sm focus:ring">
         </label>
       </div>
       <div class="mb-4">
-        <label class="block text-gray-700">
+        <label class="block font-bold text-teal-400">
           Betrag:
-          <input type="number" id="amount" class="mt-1 block w-full bg-gray-100 border border-gray-300 rounded-md shadow-sm focus:ring">
+          <input type="number" id="amount" class=" text-black mt-1 block w-full bg-teal-200 border border-teal-900 rounded-md shadow-sm focus:ring">
         </label>
       </div>
-      <button type="submit" class="w-full bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600">
+      <button type="submit" class="font-bold w-full bg-teal-400 text-black py-2 px-4 rounded-md hover:bg-teal-900 shadow-lg shadow-teal-200">
         Absenden
       </button>
     </form>
 
     <div class="mt-6">
-      <h2 class="text-xl font-bold">Gesamtbetrag: <span id="totalAmount">0.00</span> €</h2>
+      <h2 class="text-teal-400 text-xl font-bold">Gesamtbetrag: <span id="totalAmount">0.00</span> €</h2>
     </div>
     
-    <button id="toggleModal" class="mt-4 w-full bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600">
+    <button id="toggleModal" class="font-bold mt-4 w-full bg-teal-400 text-black py-2 px-4 rounded-md hover:bg-teal-900 shadow-lg shadow-teal-200">
       Einträge anzeigen
     </button>
   </div>
 
   <!-- Modal für Einträge -->
   <div id="modal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden">
-    <div class="bg-white p-6 rounded-lg shadow-lg max-w-lg w-full">
-      <h2 class="text-xl font-bold mb-4">Eingaben</h2>
+    <div class="bg-black p-6 rounded-lg shadow-lg max-w-lg w-full">
+      <h2 class="text-xl text-teal-400 font-bold mb-4">Eingaben</h2>
       <ul id="entriesList"></ul>
-      <button id="closeModal" class="mt-4 w-full bg-red-500 text-white py-2 px-4 rounded-md hover:bg-red-600">
+      <button id="closeModal" class="mt-4 w-full bg-teal-400 text-black py-2 px-4 rounded-md hover:bg-black">
         Schließen
       </button>
     </div>
   </div>
 
   <script>
+    // Firebase-Konfiguration
+    const firebaseConfig = {
+      apiKey: "AIzaSyCImvY0Vz0ZosyW5WAZUvtXqxwz0V4y9Ic",
+      authDomain: "db-halle.firebaseapp.com",
+      projectId: "db-halle",
+      storageBucket: "db-halle.appspot.com",
+      messagingSenderId: "641920947526",
+      appId: "1:641920947526:web:684cc569bccc343c1d0147",
+      measurementId: "G-LHNPNX6N61"
+    };
+
     // Firebase initialisieren
-    fetch('/config')
-      .then(response => response.json())
-      .then(config => {
-        firebase.initializeApp(config);
-        const db = firebase.firestore();
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.firestore();
 
-        document.addEventListener('DOMContentLoaded', () => {
-          const form = document.getElementById('kasseForm');
-          const totalAmountElement = document.getElementById('totalAmount');
-          const modal = document.getElementById('modal');
-          const toggleModalButton = document.getElementById('toggleModal');
-          const closeModalButton = document.getElementById('closeModal');
-          const entriesList = document.getElementById('entriesList');
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('kasseForm');
+      const totalAmountElement = document.getElementById('totalAmount');
+      const modal = document.getElementById('modal');
+      const toggleModalButton = document.getElementById('toggleModal');
+      const closeModalButton = document.getElementById('closeModal');
+      const entriesList = document.getElementById('entriesList');
 
-          let totalAmount = 0;
-          let entries = [];
+      let totalAmount = 0;
+      let entries = [];
 
-          const fetchEntries = async () => {
-            const querySnapshot = await db.collection('entries').get();
-            entries = querySnapshot.docs.map(doc => doc.data());
-            totalAmount = entries.reduce((sum, entry) => sum + entry.amount, 0);
-            totalAmountElement.textContent = totalAmount.toFixed(2);
-          };
+      const fetchEntries = async () => {
+        const querySnapshot = await db.collection('entries').get();
+        entries = querySnapshot.docs.map(doc => doc.data());
+        totalAmount = entries.reduce((sum, entry) => sum + entry.amount, 0);
+        totalAmountElement.textContent = totalAmount.toFixed(2);
+      };
 
-          const renderEntries = () => {
-            entriesList.innerHTML = '';
-            entries.forEach((entry, index) => {
-              const li = document.createElement('li');
-              li.className = 'mb-2';
-              li.innerHTML = `
-                <p><strong>Wer:</strong> ${entry.person}</p>
-                <p><strong>Was:</strong> ${entry.description}</p>
-                <p><strong>Betrag:</strong> ${entry.amount} €</p>
-                <p><strong>Datum:</strong> ${entry.date}</p>
-              `;
-              entriesList.appendChild(li);
-            });
-          };
-
-          form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const person = document.getElementById('person').value;
-            const description = document.getElementById('description').value;
-            const amount = parseFloat(document.getElementById('amount').value);
-
-            if (!isNaN(amount)) {
-              const entry = { person, description, amount, date: new Date().toLocaleString() };
-              await db.collection('entries').add(entry);
-              entries.push(entry);
-              totalAmount += amount;
-              totalAmountElement.textContent = totalAmount.toFixed(2);
-            }
-
-            form.reset();
-          });
-
-          toggleModalButton.addEventListener('click', () => {
-            modal.classList.toggle('hidden');
-            renderEntries();
-          });
-
-          closeModalButton.addEventListener('click', () => {
-            modal.classList.add('hidden');
-          });
-
-          fetchEntries();
+      const renderEntries = () => {
+        entriesList.innerHTML = '';
+        entries.forEach((entry, index) => {
+          const li = document.createElement('li');
+          li.className = 'mb-2';
+          li.innerHTML = `
+            <p><strong>Wer:</strong> ${entry.person}</p>
+            <p><strong>Was:</strong> ${entry.description}</p>
+            <p><strong>Betrag:</strong> ${entry.amount} €</p>
+            <p><strong>Datum:</strong> ${entry.date}</p>
+          `;
+          entriesList.appendChild(li);
         });
+      };
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const person = document.getElementById('person').value;
+        const description = document.getElementById('description').value;
+        const amount = parseFloat(document.getElementById('amount').value);
+
+        if (!isNaN(amount)) {
+          const entry = { person, description, amount, date: new Date().toLocaleString() };
+          await db.collection('entries').add(entry);
+          entries.push(entry);
+          totalAmount += amount;
+          totalAmountElement.textContent = totalAmount.toFixed(2);
+        }
+
+        form.reset();
       });
+
+      toggleModalButton.addEventListener('click', () => {
+        modal.classList.toggle('hidden');
+        renderEntries();
+      });
+
+      closeModalButton.addEventListener('click', () => {
+        modal.classList.add('hidden');
+      });
+
+      fetchEntries();
+    });
   </script>
 </body>
 </html>
