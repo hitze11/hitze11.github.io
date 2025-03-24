@@ -7,6 +7,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
   <style>
     body {
       background: url('public/hallelogobg.png') no-repeat center center fixed;
@@ -56,15 +57,29 @@
   </div>
 
   <script>
-    // Firebase-Konfiguration
+   
+    const encryptedConfig = {
+      apiKey: "U2FsdGVkX1+...",
+      authDomain: "U2FsdGVkX1+...",
+      projectId: "U2FsdGVkX1+...",
+      storageBucket: "U2FsdGVkX1+...",
+      messagingSenderId: "U2FsdGVkX1+...",
+      appId: "U2FsdGVkX1+...",
+      measurementId: "U2FsdGVkX1+..."
+    };
+
+
+    const secretKey = "6fee4c1670ea6e29221b60dff98cf602"; 
+
+    // Entschlüsseln der Firebase-Konfiguration
     const firebaseConfig = {
-      apiKey: "AIzaSyCImvY0Vz0ZosyW5WAZUvtXqxwz0V4y9Ic",
-      authDomain: "db-halle.firebaseapp.com",
-      projectId: "db-halle",
-      storageBucket: "db-halle.appspot.com",
-      messagingSenderId: "641920947526",
-      appId: "1:641920947526:web:684cc569bccc343c1d0147",
-      measurementId: "G-LHNPNX6N61"
+      apiKey: CryptoJS.AES.decrypt(encryptedConfig.apiKey, secretKey).toString(CryptoJS.enc.Utf8),
+      authDomain: CryptoJS.AES.decrypt(encryptedConfig.authDomain, secretKey).toString(CryptoJS.enc.Utf8),
+      projectId: CryptoJS.AES.decrypt(encryptedConfig.projectId, secretKey).toString(CryptoJS.enc.Utf8),
+      storageBucket: CryptoJS.AES.decrypt(encryptedConfig.storageBucket, secretKey).toString(CryptoJS.enc.Utf8),
+      messagingSenderId: CryptoJS.AES.decrypt(encryptedConfig.messagingSenderId, secretKey).toString(CryptoJS.enc.Utf8),
+      appId: CryptoJS.AES.decrypt(encryptedConfig.appId, secretKey).toString(CryptoJS.enc.Utf8),
+      measurementId: CryptoJS.AES.decrypt(encryptedConfig.measurementId, secretKey).toString(CryptoJS.enc.Utf8)
     };
 
     // Firebase initialisieren
