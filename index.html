@@ -1,18 +1,30 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
-  <body>
-    <div id="root"></div>
-    <a href="kasse.html">
-      <button id="checkout-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-        Zur Kasse
-      </button>
-    </a>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vite + React</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      background: url('hallelogobg.png') no-repeat center center fixed;
+      background-size: 50%;
+      opacity: 0.5;
+    }
+    #checkout-button {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+  </style>
+</head>
+<body class="flex items-center justify-center min-h-screen bg-black">
+  <div id="root"></div>
+  <a href="kasse.html">
+    <button id="checkout-button" class="bg-black hover:bg-black text-teal-400 font-bold py-2 px-4 rounded-full shadow-lg shadow-teal-400">
+      Zur Kasse
+    </button>
+  </a>
+</body>
 </html>
